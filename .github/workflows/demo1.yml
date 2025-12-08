@@ -19,10 +19,16 @@ jobs:
         with:
           python-version: '3.13'
 
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest pylint flake8 mypy black isort
+          pip install -r requirements.txt
 
       - name: Run Flake8
         run: flake8 .
