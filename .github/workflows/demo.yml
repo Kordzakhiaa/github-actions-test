@@ -1,0 +1,26 @@
+name: Test Project
+on:
+  pull_request:
+    types:
+      - opened
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output github context
+        run: echo "${{ toJSON(github) }}"
+      - name: Get code
+        uses: actions/checkout@v6
+      - name: Install python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: pip install pytest
+      - name: Run tests
+        run: pytest test.py -s
+      - name: Build
+        run: echo "Building project..."
+      - name: Deploy
+        run: echo "Deploying..."

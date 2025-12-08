@@ -1,7 +1,6 @@
 name: Test Project
 on:
   push:
-  pull_request:
   workflow_dispatch:
 jobs:
   tests:
@@ -37,8 +36,6 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.13'
-      - name: Install dependencies
-        run: pip install pytest
       - name: Build
         run: echo "Building project..."
       - name: Deploy
