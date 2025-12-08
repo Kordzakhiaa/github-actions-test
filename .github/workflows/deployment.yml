@@ -22,7 +22,7 @@ jobs:
       - name: Run Mypy
         run: mypy .
       - name: Run Black formatter check
-        run: black --check .
+        run: black --line-length=120 --check .
       - name: Run Isort check
         run: isort --check-only .
       - name: Run tests
