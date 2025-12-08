@@ -44,8 +44,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build
-        run: echo "Building project..."
-
+        run: |
+          echo "Building project..."
+          # Create a dummy artifact file
+          echo "This is a dummy artifact" > dummy_artifact.txt
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dummy-artifact
+          path: output/dummy_artifact.txt
   deploy:
     needs: build
     runs-on: ubuntu-latest
