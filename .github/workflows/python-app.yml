@@ -1,7 +1,9 @@
 name: Test Project
-on: push
-jobs: 
-  tests: 
+on:
+  push:
+  pull_request:
+jobs:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -9,7 +11,7 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13' 
+          python-version: '3.13'
       - name: Install dependencies
         run: pip install pytest
       - name: Run tests
