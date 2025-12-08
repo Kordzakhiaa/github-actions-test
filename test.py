@@ -1,0 +1,7 @@
+from main import simple_func
+
+r1 = simple_func(1)
+r2 = simple_func(2)
+
+assert r1 == True
+assert r2 == False
