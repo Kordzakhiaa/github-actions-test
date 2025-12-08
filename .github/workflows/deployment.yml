@@ -2,6 +2,7 @@ name: Test Project
 on:
   push:
   pull_request:
+  workflow_dispatch:
 jobs:
   tests:
     runs-on: ubuntu-latest
