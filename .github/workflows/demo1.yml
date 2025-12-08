@@ -57,22 +57,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Output GitHub context
-        run: echo "${{ toJSON(github) }}"
-
-      - name: Setup Python
-        uses: actions/setup-python@v6
+      - name: Get build artifacts
+        uses: actions/download-artifact@v5
         with:
-          python-version: '3.13'
-
-      - name: Install dependencies
-        run: pip install --upgrade pip && pip install pytest
-
-      - name: Run tests
-        run: pytest test.py -s
-
+          name: dummy-artifact
+      - name: Output content
+        run: ls
       - name: Deploy
         run: echo "Deploying..."
