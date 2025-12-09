@@ -49,12 +49,12 @@ jobs:
       - name: Check Isort formatting
         run: isort --check-only .
 
+      - name: Create dummy test report
+        run: echo "Some test report!" > test-report.txt
+
       - name: Run tests
         id: run-tests
         run: pytest test.py -s
-
-      - name: Create test report
-        run: echo "Some test report!" > test-report.txt
 
       - name: Upload test report
         if: steps.run-tests.outcome == 'failure'
