@@ -20,7 +20,6 @@ def test_simple_func_large_numbers():
     # Behavior with large integers
     assert simple_func(10) is False
     assert simple_func(10**6) is False
-    assert simple_func(10**6) is True
 
 
 def test_simple_func_negative_input():
