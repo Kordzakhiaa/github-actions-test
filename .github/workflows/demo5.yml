@@ -50,15 +50,18 @@ jobs:
         run: isort --check-only .
 
       - name: Run tests
+        id: run-tests
         run: pytest test.py -s
 
       - name: Create test report
-        run: echo "Test success!" > test_report.txt
+        run: echo "Some test report!" > test-report.txt
+
       - name: Upload test report
+        if: steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
-          name: test_report
-          path: test_report.txt
+          name: test-report
+          path: test-report.txt
 
       - name: Output info
         run: echo "USER - ${{ env.TEST_POSTGRES_USER }}, DB_NAME - ${{ env.TEST_DB_NAME }}, PASSWORD - ${{ env.TEST_POSTGRES_PASSWORD }}"
