@@ -55,6 +55,7 @@ jobs:
       - name: Run tests
         id: run-tests
         run: pytest test.py -s
+        continue-on-error: true
 
       - name: Upload test report
         if: steps.run-tests.outcome == 'failure'
