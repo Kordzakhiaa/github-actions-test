@@ -5,7 +5,7 @@ on:
       artifact-name:
         description: The name of the deployable artifact
         required: false
-        default: dummy-artifact
+        default: default-artifact
         type: string
 jobs:
   deploy:

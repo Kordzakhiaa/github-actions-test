@@ -80,9 +80,12 @@ jobs:
         with:
           name: dummy-artifact
           path: dummy_artifact.txt
+
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yml
+    with:
+      artifact-name: dummy-artifact
 
   report:
     needs: [ deploy ]
