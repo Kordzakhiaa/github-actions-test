@@ -102,7 +102,7 @@ jobs:
 
   report:
     needs: [ deploy ]
-    if: success()
+    if: failure()
     runs-on: ubuntu-latest
     steps:
       - name: Output information
