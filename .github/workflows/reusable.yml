@@ -7,8 +7,17 @@ on:
         required: false
         default: default-artifact
         type: string
+    outputs:
+      result:
+        description: The result of the deployment operation
+        value: ${{ jobs.deploy.ouputs.outcome }}
+    # secrets:
+      # some-secret:
+        # required: false
 jobs:
   deploy:
+    outputs:
+      outcome: ${{ steps.set-result.outputs.step-result }}
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -21,3 +30,7 @@ jobs:
 
       - name: Output information
         run: echo "Deploying & uploading..."
+
+      - name: Set result output
+        id: set-result
+        run: echo "step-result=success" >> $GITHUB_OUTPUT
