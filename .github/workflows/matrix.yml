@@ -4,8 +4,8 @@ jobs:
   build:
     strategy:
       matrix:
-        python-version: [ '3.11', '3.12', '3.13' ]
-        operating-system: [ ubuntu-latest, windows-latest ]
+        python-version: ['3.11', '3.12', '3.13']
+        operating-system: [ubuntu-latest, windows-latest]
         include:
           - python-version: '3.11'
           - operating-system: ubuntu-latest
