@@ -1,80 +1,42 @@
 name: Test Project
-
 on:
-  pull_request:
-    types: [ opened, synchronize, reopened ]
   push:
-    branches: [ main ]
   workflow_dispatch:
-
 jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Get code
         uses: actions/checkout@v6
-
-      - name: Setup Python
+      - name: Install python
         uses: actions/setup-python@v6
         with:
           python-version: '3.13'
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
+          pip install pytest pylint flake8 mypy black isort
       - name: Run Flake8
         run: flake8 .
-
       - name: Run Mypy
         run: mypy .
-
-      - name: Check Black formatting
+      - name: Run Black formatter check
         run: black --line-length=120 --check .
-
-      - name: Check Isort formatting
+      - name: Run Isort check
         run: isort --check-only .
-
       - name: Run tests
         run: pytest test.py -s
-
-  build:
+  deploy:
     needs: tests
     runs-on: ubuntu-latest
-    outputs:
-      script-file: ${{ steps.publish.outputs.dummy-script-file }}
     steps:
+      - name: Get code
+        uses: actions/checkout@v6
+      - name: Install python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
       - name: Build
-        run: |
-          echo "Building project..."
-          # Create a dummy artifact file
-          echo "This is a dummy artifact" > dummy_artifact.txt
-      - name: Publish Dummy filename
-        id: publish
-        run: find *.txt -type f -execdir echo 'dummy-script-file={}' >> $GITHUB_OUTPUT ';'
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dummy-artifact
-          path: dummy_artifact.txt
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get build artifacts
-        uses: actions/download-artifact@v5
-        with:
-          name: dummy-artifact
-      - name: Output content
-        run: ls
-      - name: Output filename
-        run: echo "${{ needs.build.outputs.script-file }}"
+        run: echo "Building project..."
       - name: Deploy
         run: echo "Deploying..."
