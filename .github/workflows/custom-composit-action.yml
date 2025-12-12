@@ -65,6 +65,9 @@ jobs:
     outputs:
       script-file: ${{ steps.publish.outputs.dummy-script-file }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Build
         run: |
           echo "Building project..."
